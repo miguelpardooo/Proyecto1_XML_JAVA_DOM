@@ -74,26 +74,37 @@ public class AccesoDOM {
         System.out.println("</catalog>");
     }
     
-    public int insertarLibroEnDOM() {
+    public void insertarLibroEnDOM() {
         Scanner teclado = new Scanner(System.in);
         String author, title, genre, publish_date, description;
         double price;
         
-        System.out.println("Introduce los datos del libro que desea insertar: ");
-        System.out.print("\tAutor: ");
-        author = teclado.next();
-        author = teclado.next();
-        
-        System.out.print("\tTítulo: ");
-        title = teclado.next();
-        
-        System.out.print("\tGénero: ");
-        genre = teclado.next();
-        
-        System.out.print("\tPrecio: ");
-        price = teclado.nextDouble();
-        
         try {
+            System.out.println("Introduce los datos del libro que desea insertar: ");
+            System.out.print("\tAutor: ");
+            author = teclado.next();
+            author = teclado.next();
+
+            System.out.print("\tTítulo: ");
+            title = teclado.next();
+
+            System.out.print("\tGénero: ");
+            genre = teclado.next();
+
+            System.out.print("\tPrecio: ");
+            price = teclado.nextDouble();
+
+            System.out.print("\tFecha de publicación: ");
+            publish_date = teclado.next();
+
+            System.out.print("\tDescripción: ");
+            description = teclado.next();
+        } catch (Exception e) {
+            
+        }
+        
+        
+        /*try {
             System.out.println("Añadir libro al árbol DOM: " + titulo + "; " + autor + "; " +fecha);
             
             Node ntitulo = doc.createElement("Titulo");
@@ -118,6 +129,6 @@ public class AccesoDOM {
         } catch (Exception e) {
             System.out.println(e);
             return -1;
-        }
+        }*/
     }
 }
