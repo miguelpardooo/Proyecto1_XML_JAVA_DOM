@@ -8,6 +8,10 @@ public class UsaAccesoDOM {
         AccesoDOM a = new AccesoDOM();
         File f = new File("books.xml");
         a.abriXMLaDOM(f);
+        
+        //a.insertarLibroEnDOM();
+        a.deleteNode();
+        
         a.recorreDOMyMuestra();
     }
     
