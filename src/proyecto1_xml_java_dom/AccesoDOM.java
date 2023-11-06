@@ -32,7 +32,7 @@ public class AccesoDOM {
     }
     
     public void recorreDOMyMuestra() {
-        String[] datos = new String[3];
+        String[] datos = new String[7];
         Node nodo = null;
         Node root = doc.getFirstChild();
         NodeList nodelist = root.getChildNodes();
@@ -58,11 +58,13 @@ public class AccesoDOM {
                     }
                 }
                 
-                //System.out.println(datos[0] + " -- " + datos[2] + " -- " + datos[1]);
-                
                 System.out.println("\t<book id=\"" + datos[0] + "\">");
                 System.out.println("\t\t<author>" + datos[1] + "</author>");
                 System.out.println("\t\t<title>" + datos[2] + "</title>");
+                System.out.println("\t\t<genre>" + datos[3] + "</genre>");
+                System.out.println("\t\t<price>" + datos[4] + "</price>");
+                System.out.println("\t\t<publish_date>" + datos[5] + "</publish_date>");
+                System.out.println("\t\t<description>" + datos[6] + "</description>");
                 System.out.println("\t</book>");
             }
         }
