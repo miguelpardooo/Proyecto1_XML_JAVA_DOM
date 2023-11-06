@@ -2,6 +2,8 @@ package proyecto1_xml_java_dom;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -86,29 +88,46 @@ public class AccesoDOM {
         
         try {
             System.out.println("Introduce los datos del libro que desea insertar: ");
-            
+
             System.out.print("\tID: ");
             id = teclado.nextLine();
-            
-            System.out.print("\tAutor: ");
-            author = teclado.nextLine();
 
+            //Comprobar que es un nombre valido
+            do {
+                System.out.print("\tAutor: ");
+                author = teclado.nextLine();
+            } while (!esNombre(author));
+
+            //Agreagr titulo
             System.out.print("\tTítulo: ");
             title = teclado.nextLine();
 
-            System.out.print("\tGénero: ");
-            genre = teclado.nextLine();
+            //Comprobar que el genero no sea un numero
+            do {
+                System.out.print("\tGénero: ");
+                genre = teclado.nextLine();
+            } while (!esNombre(genre));
 
-            System.out.print("\tPrecio: ");
-            price = teclado.nextLine();
+            //Limpiar el buffer
+            teclado.nextLine();
+            
+            //Comprobar que es un numero
+            do {
+                System.out.print("\tPrecio: ");
+                price = teclado.nextLine();
+            } while (!esNumero(price));
 
-            System.out.print("\tFecha de publicación: ");
-            publish_date = teclado.nextLine();
-
+            //Comprobar que sea una fecha con un formato correcto
+            do {
+                System.out.print("\tFecha de publicación: ");
+                publish_date = teclado.nextLine();
+            } while (!ComprobarFormatoFecha(publish_date));
+            
+            //Agreagar una descripcion
             System.out.print("\tDescripción: ");
             description = teclado.nextLine();
-        } catch (Exception e) {
-            
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         
         
@@ -207,5 +226,41 @@ public class AccesoDOM {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+        private boolean esNombre(String nombre) {
+        boolean salida = false;
+
+        Pattern pattern = Pattern.compile("^[a-zA-Z]*$");
+        Matcher matcher = pattern.matcher(nombre);
+        if (matcher.matches()) {
+            salida = true;
+        } else {
+            System.out.println("Ingresa un Nombre valido!! Gracias");
+        }
+        return salida;
+    }
+
+    private boolean esNumero(String numero) {
+        boolean salida = false;
+        try {
+            Double.parseDouble(numero);
+            salida = true;
+        } catch (NumberFormatException e) {
+            System.out.println("Ingresa un Numero Valido! Gracias!");
+        }
+        return salida;
+    }
+
+    private boolean ComprobarFormatoFecha(String fecha) {
+        boolean salida = false;
+        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
+        Matcher matcher = pattern.matcher(fecha);
+        if (matcher.matches()) {
+            salida = true;
+        } else {
+            System.out.println("Ingresa una Fecha con Formato Válido (año-mes-día)! Gracias!");
+        }
+        return salida;
     }
 }
