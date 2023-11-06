@@ -1,9 +1,11 @@
 package proyecto1_xml_java_dom;
 
 import java.io.File;
+import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -70,5 +72,52 @@ public class AccesoDOM {
         }
         
         System.out.println("</catalog>");
+    }
+    
+    public int insertarLibroEnDOM() {
+        Scanner teclado = new Scanner(System.in);
+        String author, title, genre, publish_date, description;
+        double price;
+        
+        System.out.println("Introduce los datos del libro que desea insertar: ");
+        System.out.print("\tAutor: ");
+        author = teclado.next();
+        author = teclado.next();
+        
+        System.out.print("\tTítulo: ");
+        title = teclado.next();
+        
+        System.out.print("\tGénero: ");
+        genre = teclado.next();
+        
+        System.out.print("\tPrecio: ");
+        price = teclado.nextDouble();
+        
+        try {
+            System.out.println("Añadir libro al árbol DOM: " + titulo + "; " + autor + "; " +fecha);
+            
+            Node ntitulo = doc.createElement("Titulo");
+            Node ntitulo_text = doc.createTextNode(titulo);
+            ntitulo.appendChild(ntitulo_text);
+            
+            Node nautor = doc.createElement("Autor");
+            Node nautor_text=doc.createTextNode(autor);
+            nautor.appendChild(nautor_text);
+            
+            Node nLibro=doc.createElement("Libro");
+            ((Element)nLibro).setAttribute("publicado", fecha);
+            nLibro.appendChild(ntitulo);
+            nLibro.appendChild(nautor);
+            
+            nLibro.appendChild(doc.createTextNode("\n"));
+            Node raiz = doc.getFirstChild();
+            raiz.appendChild(nLibro);
+            System.out.println("Libro insertado en DOM.");
+            
+            return 0;
+        } catch (Exception e) {
+            System.out.println(e);
+            return -1;
+        }
     }
 }
