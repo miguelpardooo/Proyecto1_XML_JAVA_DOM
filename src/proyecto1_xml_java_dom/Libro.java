@@ -82,6 +82,6 @@ public class Libro {
                 + "\n\t\t<price>" + this.price + "</price>"
                 + "\n\t\t<publish_date>" + this.publish_date + "</publish_date>"
                 + "\n\t\t<description>" + this.description + "</description>"
-                + "\t\n</book>";
+                + "\n\t</book>";
     }
 }

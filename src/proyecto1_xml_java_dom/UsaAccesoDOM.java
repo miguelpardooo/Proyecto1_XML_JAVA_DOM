@@ -13,7 +13,7 @@ public class UsaAccesoDOM {
         String opcion; // DONDE SE GUARDA LA ELECCION DEL SWITCH
         boolean condicionSalida = false; //CONDICION DE SALIDA DEL BUCLE DE BIENVENIDA
         
-        File f = new File("books2.xml");
+        File f = new File("books.xml");
         //ABRIMOS EL FICHERO Y GUARDAMOS LOS DATOS EN EL ARRAYLIST
         accesoDom.abriXMLaDOM(f);
         catalogo = accesoDom.recorreDOMyGuardarloEnArrayList();
@@ -27,6 +27,7 @@ public class UsaAccesoDOM {
             System.out.println("Teclea 3 Para Borrar un Libro!");
             System.out.println("Teclea 4 Para Guardarlo de Nuevo en el Archivo!");
             System.out.println("Teclea 5 Para Salir!");
+            System.out.println("");
             opcion = sc.nextLine();
             switch (opcion) {
             case "1":
@@ -60,7 +61,7 @@ public class UsaAccesoDOM {
                 System.out.println("================================");
                 break;
             case "4":
-                accesoDom.guardarDOMcomoArchivo("books2.xml");
+                accesoDom.guardarDOMcomoArchivo("books.xml");
                 System.out.println("================================");
                 break;
             case "5":
