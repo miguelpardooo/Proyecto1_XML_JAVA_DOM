@@ -3,8 +3,6 @@ package proyecto1_xml_java_dom;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -20,8 +18,10 @@ import org.w3c.dom.NodeList;
 
 public class AccesoDOM {
 
-    Document doc;
+    private ArrayList<Libro> catalogo = new ArrayList<>(); // CREAMOS UN ARRAYLIST PARA PODER GUARDAR LOS DATOS Y USARLO SI LO NECESITAMOS EN ALGUN MOMENTO
+    Document doc; // CREAMOS UN DOCUMENT
 
+    //METODO PARA ABRIR EL ARCHIVO XML
     public int abriXMLaDOM(File f) {
         try {
             System.out.println("Abriendo archivo XML file y generando DOM....");
@@ -41,8 +41,8 @@ public class AccesoDOM {
             return -1;
         }
     }
-    private ArrayList<Libro> catalogo = new ArrayList<>();
 
+    //METODO PARA RECORRER EL DOM E IR GUARDANDO LOS DATOS EN LIBRO Y DESPUES EN EL ARRAYLIST
     public ArrayList<Libro> recorreDOMyGuardarloEnArrayList() {
         String[] datos = new String[7];
         Node nodo = null;
@@ -140,7 +140,7 @@ public class AccesoDOM {
         String tit;
         boolean salidaBucle = false;
         Operaciones operaciones = new Operaciones();
-        
+
         do {
             System.out.println("Indica el título del libro que desea borrar: ");
             tit = teclado.nextLine();
