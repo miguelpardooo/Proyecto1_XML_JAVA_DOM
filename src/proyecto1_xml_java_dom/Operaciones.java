@@ -11,12 +11,13 @@ import java.util.regex.Pattern;
  */
 public class Operaciones {
 
-    private ArrayList<Libro> catalogo;
+    private ArrayList<Libro> catalogo; //ARRAYLISTR PARA GUARDAR LOS DATOS
 
-    public Operaciones() {
+    public Operaciones() { //CONSTRUCTOR VACIO PARA PODER ACCEDER A LOS METODOS
     }
     
-
+    
+    //METODO PARA CARGAR LOS DATOS EN EL ARRAYLIST
     public void cargarDatos(ArrayList<Libro> catalogo) {
 
         try {
@@ -29,6 +30,7 @@ public class Operaciones {
 
     }
 
+    //METODO PARA CREAR UN LIBRO
     public Libro crearLibro(ArrayList<Libro> catalogo) {
 
         cargarDatos(catalogo);
@@ -42,7 +44,7 @@ public class Operaciones {
             try {
                 System.out.println("Introduce los datos del libro que desea insertar: ");
 
-                //Comprobamos que el id no existe ya!
+                //COMPROBAMOS QU EL ID NO EXISTE YA
                 boolean salidaBucle = false;
                 do {
                     System.out.print("\tID: ");
@@ -56,13 +58,13 @@ public class Operaciones {
 
                 } while (!salidaBucle);
 
-                //Comprobar que es un nombre valido y que no esta repetido
+                //COMPROBAR QUE ES UN NOMBRE VALIDO Y QUE NO ESTA REPETIDO
                 do {
                     System.out.print("\tAutor: ");
                     author = teclado.nextLine();
                 } while (!esNombre(author));
 
-                //Agreagr titulo comprobar que no esta repetido
+                //AGREAGR TITULO COMPROBAR QUE NO ESTA REPETIDO
                 salidaBucle = false;
                 do {
                     System.out.print("\tTítulo: ");
@@ -74,25 +76,25 @@ public class Operaciones {
                     }
                 } while (!salidaBucle);
 
-                //Comprobar que el genero no sea un numero
+                //COMPROBAR QUE EL GENERO NO SEA UN NUMERO
                 do {
                     System.out.print("\tGénero: ");
                     genre = teclado.nextLine();
                 } while (!esNombre(genre));
 
-                //Comprobar que es un numero
+                //COMPROBAR QUE ES UN NUMERO
                 do {
                     System.out.print("\tPrecio: ");
                     price = teclado.nextLine();
                 } while (!esNumero(price));
 
-                //Comprobar que sea una fecha con un formato correcto
+                //COMPROBAR EL FORMATO DE LA FECHA
                 do {
                     System.out.print("\tFecha de publicación: ");
                     publish_date = teclado.nextLine();
                 } while (!ComprobarFormatoFecha(publish_date));
 
-                //Agreagar una descripcion
+                //AGREGAR UNA DESCRIPCION
                 System.out.print("\tDescripción: ");
                 description = teclado.nextLine();
 
@@ -107,6 +109,7 @@ public class Operaciones {
         return libro;
     }
 
+    //METODO PARA COMPROBAR SI ES UN NOMBRE
     private boolean esNombre(String nombre) {
         boolean salida = false;
 
@@ -120,6 +123,7 @@ public class Operaciones {
         return salida;
     }
 
+    //COMPROBAR SI ES UN NUMERO
     private boolean esNumero(String numero) {
         boolean salida = false;
         try {
@@ -131,6 +135,7 @@ public class Operaciones {
         return salida;
     }
 
+    //COMPROBAR EL FORMATO DE LA FECHA DE MANERA SIMPLE
     private boolean ComprobarFormatoFecha(String fecha) {
         boolean salida = false;
         Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
@@ -143,6 +148,7 @@ public class Operaciones {
         return salida;
     }
 
+    //COMPROBAR SI EL ID ESTA
     private boolean estaElID(String id) {
         boolean salida = false;
 
@@ -154,6 +160,7 @@ public class Operaciones {
         return salida;
     }
 
+    //COMPROBAMOS SI EL TITULO ESTA YA PARA NO VOLVER A GUARDARLO DENTRO DE LA PROPIA CLASE
     private boolean estaTitulo(String nombre) {
         boolean salida = false;
 
@@ -165,6 +172,7 @@ public class Operaciones {
         return salida;
     }
     
+    //METODO DE COMPROBAR TITULO SOBRECARGADO PARA USARLO FUERA D ELA CLASE
         public boolean estaTitulo(String nombre, ArrayList<Libro> catalogo) {
         boolean salida = false;
 

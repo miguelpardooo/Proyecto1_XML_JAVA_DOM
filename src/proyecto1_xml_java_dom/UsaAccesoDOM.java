@@ -44,9 +44,9 @@ public class UsaAccesoDOM {
                     Operaciones operacionesLibro = new Operaciones();
                     Libro libro = new Libro();
                     libro = operacionesLibro.crearLibro(catalogo);
-                    //Insertamos el Libro en el DOM
+                    //INSERTAMOS UN LIBRO EN EL DOM
                     accesoDom.insertarLibroEnDOM(libro);
-                    //Guardamos los datos de nuevo en el ArrayList para ver si esta el libro
+                    //GUARDAMOS DE NUEVO LOS DATOS EN EL ARRAYLIST
                     catalogo.clear();
                     catalogo = accesoDom.recorreDOMyGuardarloEnArrayList();
                     verTodosLosLibros(catalogo);
