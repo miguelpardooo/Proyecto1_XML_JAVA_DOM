@@ -5,21 +5,16 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author 3rWaZzZa
- */
+//clase para manejar las operaciones que se hara con los datos del dom
 public class Operaciones {
 
-    private ArrayList<Libro> catalogo; //ARRAYLISTR PARA GUARDAR LOS DATOS
+    private ArrayList<Libro> catalogo;//arraylist con todos los datos de dom
 
-    public Operaciones() { //CONSTRUCTOR VACIO PARA PODER ACCEDER A LOS METODOS
+    public Operaciones() {//constructor vacio para acceder a los metodos de la clase
     }
-    
-    
-    //METODO PARA CARGAR LOS DATOS EN EL ARRAYLIST
-    public void cargarDatos(ArrayList<Libro> catalogo) {
 
+    //metodo para cargar los datos en el arraylist
+    public void cargarDatos(ArrayList<Libro> catalogo) {
         try {
             this.catalogo = catalogo;
         } catch (NullPointerException ex) {
@@ -27,77 +22,78 @@ public class Operaciones {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
-    //METODO PARA CREAR UN LIBRO
+    //metodo para crear un libro
     public Libro crearLibro(ArrayList<Libro> catalogo) {
 
-        cargarDatos(catalogo);
-        Libro libro = null;
+        cargarDatos(catalogo);//carga los datos en el arraylist
+        Libro libro = null;//creamos un objeto libro nulo
 
-        if (catalogo != null) {
-
-            Scanner teclado = new Scanner(System.in);
-            String id = null, author = null, title = null, genre = null, price = null, publish_date = null, description = null;
+        if (catalogo != null) {//mientras el catalogo no sea nulo
+            Scanner teclado = new Scanner(System.in);//creamos el scanner
+            String id = null, author = null, title = null, genre = null, price = null, publish_date = null, description = null;//variables con todos los datos
 
             try {
                 System.out.println("Introduce los datos del libro que desea insertar: ");
 
-                //COMPROBAMOS QU EL ID NO EXISTE YA
-                boolean salidaBucle = false;
+                boolean salidaBucle = false;//variable para salir del bucle cuando el id no exista
+
+                //comprobamos si el id existe
                 do {
                     System.out.print("\tID: ");
                     id = teclado.nextLine();
-                    if (!estaElID(id)) {
+                    if (!estaElID(id)) {//comprobar si el id esta
                         salidaBucle = true;
                     } else {
                         System.out.println("ID Repetido!");
                         System.out.println("Ingresa un ID Válido! Gracias!");
                     }
 
-                } while (!salidaBucle);
+                } while (!salidaBucle);//sale del bucle si el id no esta
 
-                //COMPROBAR QUE ES UN NOMBRE VALIDO Y QUE NO ESTA REPETIDO
+                //comprobamos que sea un nombre valido
                 do {
                     System.out.print("\tAutor: ");
                     author = teclado.nextLine();
                 } while (!esNombre(author));
 
-                //AGREAGR TITULO COMPROBAR QUE NO ESTA REPETIDO
-                salidaBucle = false;
+                salidaBucle = false;//variable para la salida del bucle de comprobar titulo
+
+                //comprobamos si el titulo existe ya, y si ya esta no lo introduce
                 do {
                     System.out.print("\tTítulo: ");
                     title = teclado.nextLine();
                     if (!estaTitulo(title)) {
-                        salidaBucle= true;
-                    }else{
+                        salidaBucle = true;
+                    } else {
                         System.out.println("Titulo Duplicado!");
                     }
                 } while (!salidaBucle);
 
-                //COMPROBAR QUE EL GENERO NO SEA UN NUMERO
+                //comprobamos que el genero sea un nombre
                 do {
                     System.out.print("\tGénero: ");
                     genre = teclado.nextLine();
                 } while (!esNombre(genre));
 
-                //COMPROBAR QUE ES UN NUMERO
+                //comprobar que sea un numero el precio
                 do {
                     System.out.print("\tPrecio: ");
                     price = teclado.nextLine();
                 } while (!esNumero(price));
 
-                //COMPROBAR EL FORMATO DE LA FECHA
+                //comprobar que el formato de la fecha sea un numero valido
                 do {
                     System.out.print("\tFecha de publicación: ");
                     publish_date = teclado.nextLine();
                 } while (!ComprobarFormatoFecha(publish_date));
 
-                //AGREGAR UNA DESCRIPCION
+                //agregar una descripcion al libro
                 System.out.print("\tDescripción: ");
                 description = teclado.nextLine();
 
+                //al libro que creamos mas arriba como nulo le asignamos los datos metidos por teclado
                 libro = new Libro(id, author, title, genre, price, publish_date, description);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -106,16 +102,16 @@ public class Operaciones {
             System.out.println("No se Han Cargado los Datos de los Libros!");
         }
 
-        return libro;
+        return libro;//devolvemos el libro con los datos
     }
 
-    //METODO PARA COMPROBAR SI ES UN NOMBRE
+    //metodo para comprobar si es un nombre
     private boolean esNombre(String nombre) {
         boolean salida = false;
 
-        Pattern pattern = Pattern.compile("^[a-zA-Z,\\s]+$");
-        Matcher matcher = pattern.matcher(nombre);
-        if (matcher.matches()) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z,\\s]+$");//patron para comprobar que es un nombre
+        Matcher matcher = pattern.matcher(nombre);//machear el patron
+        if (matcher.matches()) {//comprobar si cumple con el patron indicado
             salida = true;
         } else {
             System.out.println("Ingresa un Nombre valido!! Gracias");
@@ -123,11 +119,11 @@ public class Operaciones {
         return salida;
     }
 
-    //COMPROBAR SI ES UN NUMERO
+    //metodo para comprobar que sea un numero
     private boolean esNumero(String numero) {
-        boolean salida = false;
+        boolean salida = false;//variable para la salida del bucle
         try {
-            Double.parseDouble(numero);
+            Double.parseDouble(numero);//parshea el numero a un doble y si salta la excepcion no es un numero
             salida = true;
         } catch (NumberFormatException e) {
             System.out.println("Ingresa un Numero Valido! Gracias!");
@@ -135,12 +131,12 @@ public class Operaciones {
         return salida;
     }
 
-    //COMPROBAR EL FORMATO DE LA FECHA DE MANERA SIMPLE
+    //comprobar el formato de la fecha con un patron
     private boolean ComprobarFormatoFecha(String fecha) {
-        boolean salida = false;
-        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-        Matcher matcher = pattern.matcher(fecha);
-        if (matcher.matches()) {
+        boolean salida = false;//variable para la salida
+        Pattern pattern = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");//patron para la fecha
+        Matcher matcher = pattern.matcher(fecha);//macheamos el patron
+        if (matcher.matches()) {//comprobamos que el patron corresponde con el string pasado
             salida = true;
         } else {
             System.out.println("Ingresa una Fecha con Formato Válido (año-mes-día)! Gracias!");
@@ -148,11 +144,11 @@ public class Operaciones {
         return salida;
     }
 
-    //COMPROBAR SI EL ID ESTA
+    //comprobar si el id esta
     private boolean estaElID(String id) {
-        boolean salida = false;
+        boolean salida = false;//variable de salida para saber si esta el id o no
 
-        for (Libro libro : catalogo) {
+        for (Libro libro : catalogo) {//recorremos el catalogo para ver si esta el id
             if (libro.getId().equals(id)) {
                 salida = true;
             }
@@ -160,23 +156,11 @@ public class Operaciones {
         return salida;
     }
 
-    //COMPROBAMOS SI EL TITULO ESTA YA PARA NO VOLVER A GUARDARLO DENTRO DE LA PROPIA CLASE
+    //comprobar si el titulo esta ya para no poder guardarlo de nuevo
     private boolean estaTitulo(String nombre) {
-        boolean salida = false;
+        boolean salida = false;//variable para la salida del metodo para saber si esta o no el titulo
 
-        for (Libro libro : catalogo) {
-            if (libro.getTitle().equals(nombre)) {
-                salida = true;
-            }
-        }
-        return salida;
-    }
-    
-    //METODO DE COMPROBAR TITULO SOBRECARGADO PARA USARLO FUERA D ELA CLASE
-        public boolean estaTitulo(String nombre, ArrayList<Libro> catalogo) {
-        boolean salida = false;
-
-        for (Libro libro : catalogo) {
+        for (Libro libro : catalogo) {//recorremos el catalogo en busca de todos los libros
             if (libro.getTitle().equals(nombre)) {
                 salida = true;
             }
@@ -184,4 +168,15 @@ public class Operaciones {
         return salida;
     }
 
+    //metodo de buscar titulo sobrecargado para poder usarlo fuera de la clase pasandole un catalogo
+    public boolean estaTitulo(String nombre, ArrayList<Libro> catalogo) {
+        boolean salida = false;//variable para la salida del metodo para saber si esta o no el titulo
+
+        for (Libro libro : catalogo) {////recorremos el catalogo en busca de todos los libros
+            if (libro.getTitle().equals(nombre)) {
+                salida = true;
+            }
+        }
+        return salida;
+    }
 }

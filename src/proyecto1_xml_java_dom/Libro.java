@@ -1,5 +1,6 @@
 package proyecto1_xml_java_dom;
 
+//clase para poder guardar los datos que se saque del dom en un objeto libro y que sea mas facil manejar sus datos
 public class Libro {
 
     private String id, author, title, genre, price, publish_date, description;
